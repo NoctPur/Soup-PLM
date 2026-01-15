@@ -9,38 +9,106 @@
   <link id="favicon" rel="icon" type="image/png" href="favicon-default.png">
 
   <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
     body {
-      background:#111;
-      color:#fff;
-      font-family: Arial, sans-serif;
-      text-align:center;
-      padding:20px;
+      margin: 0;
+      background: radial-gradient(circle at top, #111, #000);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
     }
 
-    .radio {
-      margin: 15px auto;
-      max-width: 400px;
-      background: #1c1c1c;
+    .app {
+      width: 100%;
+      max-width: 480px;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    header img {
+      width: 42px;
+      height: 42px;
+    }
+
+    header h1 {
+      font-size: 1.4rem;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .player {
+      background: #151515;
+      border-radius: 14px;
       padding: 15px;
-      border-radius: 8px;
+      margin-bottom: 25px;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.08);
     }
 
-    button {
-      margin-top: 10px;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+    #nowPlaying {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin-bottom: 10px;
     }
 
     audio {
       width: 100%;
-      margin-top: 20px;
+      outline: none;
+      filter: invert(1);
     }
 
-    #nowPlaying {
-      margin-top: 15px;
-      font-weight: bold;
+    .radio {
+      background: #1b1b1b;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .radio:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+    }
+
+    .radio h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    button {
+      background: #e10600;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    button:hover {
+      background: #ff1f18;
+    }
+
+    footer {
+      text-align: center;
+      opacity: 0.5;
+      font-size: 0.75rem;
+      margin-top: 30px;
     }
   </style>
 </head>
