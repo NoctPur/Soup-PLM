@@ -2,8 +2,11 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Soup PLM – Radios</title>
+  <title>Soup PLM</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Favicon -->
+  <link id="favicon" rel="icon" type="image/png" href="favicon-default.png">
 
   <style>
     body {
@@ -34,6 +37,11 @@
       width: 100%;
       margin-top: 20px;
     }
+
+    #nowPlaying {
+      margin-top: 15px;
+      font-weight: bold;
+    }
   </style>
 </head>
 
@@ -41,33 +49,53 @@
 
   <h1>🎧 Soup PLM</h1>
 
-  <!-- Lecteur audio unique -->
-  <audio id="player" controls>
-    Ton navigateur ne supporte pas l’audio.
-  </audio>
+  <div id="nowPlaying">⏸ Aucune radio en cours</div>
 
-  <!-- Skyrock PLM -->
+  <audio id="player" controls></audio>
+
   <div class="radio">
     <h3>Skyrock PLM</h3>
-    <button onclick="playRadio('https://icecast.skyrock.net/s/plm_aac_128k')">
+    <button onclick="playRadio(
+      'Skyrock PLM',
+      'https://icecast.skyrock.net/s/plm_aac_128k',
+      'favicon-skyrock.png'
+    )">
       ▶ Écouter
     </button>
   </div>
 
-  <!-- Fun Radio -->
   <div class="radio">
     <h3>Fun Radio</h3>
-    <button onclick="playRadio('https://icecast.funradio.fr/fun-1-44-128?listen=webGJmqBU59boQ7rZDjrGO5e4')">
+    <button onclick="playRadio(
+      'Fun Radio',
+      'https://icecast.funradio.fr/fun-1-44-128?listen=webGJmqBU59boQ7rZDjrGO5e4',
+      'favicon-fun.png'
+    )">
       ▶ Écouter
     </button>
   </div>
 
 <script>
-  function playRadio(url) {
-    const player = document.getElementById('player');
+  const player = document.getElementById('player');
+  const nowPlaying = document.getElementById('nowPlaying');
+  const favicon = document.getElementById('favicon');
+
+  function playRadio(name, url, icon) {
     player.src = url;
     player.play();
+
+    nowPlaying.textContent = "▶ En cours : " + name;
+    document.title = name + " • Soup PLM";
+
+    // Change favicon (anti-cache)
+    favicon.href = icon + "?v=" + Date.now();
   }
+
+  player.addEventListener('pause', () => {
+    nowPlaying.textContent = "⏸ En pause";
+    document.title = "Soup PLM";
+    favicon.href = "favicon-default.png";
+  });
 </script>
 
 </body>
