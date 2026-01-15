@@ -1,40 +1,34 @@
 /* =========================
-   RESET & BASE
-   ========================= */
+   RESET
+========================= */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
-  background: #000;
+  background: radial-gradient(circle at top, #111, #000);
   color: #fff;
   min-height: 100vh;
 }
 
 /* =========================
-   LAYOUT GLOBAL
-   ========================= */
-.container {
-  max-width: 600px;
-  margin: auto;
-  padding-bottom: 90px;
-}
-
-/* =========================
    HEADER
-   ========================= */
-.top {
+========================= */
+header {
   padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .brand {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 600;
 }
 
@@ -44,44 +38,42 @@ body {
 }
 
 #nowPlaying {
-  margin-top: 6px;
   font-size: 0.9rem;
   opacity: 0.7;
 }
 
 /* =========================
-   RADIOS — MOBILE (DEFAULT)
-   ========================= */
+   RADIOS – MOBILE FIRST
+========================= */
 .radios {
-  padding: 10px 20px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
 .radio {
-  background: #121212;
-  border-radius: 14px;
-  padding: 12px;
+  background: linear-gradient(180deg, #1a1a1a, #111);
+  border-radius: 18px;
+  padding: 14px;
   display: flex;
   align-items: center;
   gap: 14px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
 }
 
 .radio img {
-  width: 64px;
-  height: 64px;
-  border-radius: 12px;
+  width: 70px;
+  height: 70px;
+  border-radius: 14px;
   object-fit: cover;
-  flex-shrink: 0;
 }
 
 .radio-info {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .radio-info span {
@@ -90,83 +82,8 @@ body {
 }
 
 .radio button {
-  align-self: flex-start;
   background: var(--accent, #e10600);
   border: none;
   color: #fff;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 8px 16px;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-
-/* =========================
-   PLAYER
-   ========================= */
-.player {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #0f0f0f;
-  padding: 12px 16px;
-  border-top: 1px solid rgba(255,255,255,0.05);
-}
-
-audio {
-  width: 100%;
-  filter: invert(1);
-}
-
-/* =========================
-   DESKTOP MODE
-   ========================= */
-@media (min-width: 768px) {
-
-  .container {
-    max-width: 1000px;
-    padding-bottom: 20px;
-  }
-
-  .top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .radios {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    padding: 20px;
-  }
-
-  .radio {
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-    gap: 16px;
-  }
-
-  .radio img {
-    width: 120px;
-    height: 120px;
-    border-radius: 18px;
-  }
-
-  .radio-info {
-    align-items: center;
-  }
-
-  .radio button {
-    width: 100%;
-    padding: 10px 0;
-    font-size: 1rem;
-  }
-
-  .player {
-    position: static;
-    margin: 20px;
-    border-radius: 18px;
-  }
-}
