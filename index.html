@@ -7,154 +7,57 @@
 
   <!-- Favicon -->
   <link id="favicon" rel="icon" type="image/png" href="favicon-default.png">
-
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-
-    body {
-      margin: 0;
-      background: radial-gradient(circle at top, #111, #000);
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-    }
-
-    .app {
-      width: 100%;
-      max-width: 480px;
-      padding: 20px;
-    }
-
-    header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    header img {
-      width: 42px;
-      height: 42px;
-    }
-
-    header h1 {
-      font-size: 1.4rem;
-      margin: 0;
-      font-weight: 600;
-    }
-
-    .player {
-      background: #151515;
-      border-radius: 14px;
-      padding: 15px;
-      margin-bottom: 25px;
-      box-shadow: 0 0 20px rgba(255, 0, 0, 0.08);
-    }
-
-    #nowPlaying {
-      font-size: 0.95rem;
-      opacity: 0.85;
-      margin-bottom: 10px;
-    }
-
-    audio {
-      width: 100%;
-      outline: none;
-      filter: invert(1);
-    }
-
-    .radio {
-      background: #1b1b1b;
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .radio:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.6);
-    }
-
-    .radio h3 {
-      margin: 0;
-      font-size: 1rem;
-      font-weight: 500;
-    }
-
-    button {
-      background: #e10600;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 14px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    button:hover {
-      background: #ff1f18;
-    }
-
-    footer {
-      text-align: center;
-      opacity: 0.5;
-      font-size: 0.75rem;
-      margin-top: 30px;
-    }
-  </style>
 </head>
 
 <body>
+  <div class="container">
 
-  <h1>🎧 Noct PLM</h1>
+    <header class="top">
+      <div class="brand">
+        <img src="favicon-default.png" alt="Noct">
+        <span>Noct PLM</span>
+      </div>
+      <div id="nowPlaying">⏸ En pause</div>
+    </header>
 
-  <div id="nowPlaying">⏸ Aucune radio en cours</div>
+    <main class="radios">
+      <!-- Fun Radio -->
+      <div class="radio">
+        <span>Fun Radio</span>
+        <button onclick="playRadio(
+          'Fun Radio',
+          'https://icecast.funradio.fr/fun-1-44-128',
+          'favicon-fun.png'
+        )">▶</button>
+      </div>
 
-  <audio id="player" controls></audio>
+      <!-- Skyrock PLM -->
+      <div class="radio">
+        <span>Skyrock PLM</span>
+        <button onclick="playRadio(
+          'Skyrock PLM',
+          'https://icecast.skyrock.net/s/plm_aac_128k',
+          'favicon-skyrock.png'
+        )">▶</button>
+      </div>
 
-  <div class="radio">
-    <h3>Fun Radio</h3>
-    <button onclick="playRadio(
-      'Fun Radio',
-      'https://icecast.funradio.fr/fun-1-44-128?listen=webGJmqBU59boQ7rZDjrGO5e4',
-      'favicon-fun.png'
-    )">
-      ▶ Écouter
-    </button>
+      <!-- Mouv -->
+      <div class="radio">
+        <span>Mouv’ RapFR</span>
+        <button onclick="playRadio(
+          'Mouv’ RapFR',
+          'https://icecast.radiofrance.fr/mouvrapfr-hifi.aac',
+          'favicon-mouv.png'
+        )">▶</button>
+      </div>
+    </main>
+
+    <div class="player">
+      <audio id="player" controls></audio>
+    </div>
+
   </div>
-  
-  <div class="radio">
-    <h3>Skyrock PLM</h3>
-    <button onclick="playRadio(
-      'Skyrock PLM',
-      'https://icecast.skyrock.net/s/plm_aac_128k',
-      'favicon-skyrockplm.png'
-    )">
-      ▶ Écouter
-    </button>
-  </div>
-
-  <div class="radio">
-    <h3>Mouv' RapFR</h3>
-    <button onclick="playRadio(
-      'Mouv’ RapFR',
-      'https://icecast.radiofrance.fr/mouv-hifi.aac',
-      'favicon-mouv.png'
-    )">
-      ▶ Écouter
-    </button>
-  </div>
-
-
+</body>
   
 <script>
   const player = document.getElementById('player');
