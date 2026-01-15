@@ -87,3 +87,67 @@ header {
   color: #fff;
   border-radius: 12px;
   padding: 8px 16px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* =========================
+   PLAYER
+========================= */
+.player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #0d0d0d;
+  padding: 14px 18px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+audio {
+  width: 100%;
+  filter: invert(1);
+}
+
+/* =========================
+   DESKTOP MODE
+========================= */
+@media (min-width: 768px) {
+
+  .radios {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+  }
+
+  .radio {
+    flex-direction: column;
+    text-align: center;
+    padding: 22px;
+  }
+
+  .radio img {
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+  }
+
+  .radio-info {
+    align-items: center;
+  }
+
+  .radio button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  .player {
+    position: static;
+    max-width: 900px;
+    margin: 30px auto;
+    border-radius: 20px;
+  }
+}
