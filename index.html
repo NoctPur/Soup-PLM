@@ -2,105 +2,68 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Noct PLM</title>
-
-  <!-- CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="favicon.png">
   <link rel="stylesheet" href="style.css">
-
-  <!-- Favicon -->
-  <link rel="icon" href="noct-plm.png">
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="brand">
-      <img src="noct-plm.png" alt="Noct PLM">
-      <span>Noct PLM</span>
-    </div>
-  </header>
+<header>
+  <img src="favicon.png" alt="Noct">
+  <h1>Noct PLM</h1>
+</header>
 
-  <!-- LISTE DES RADIOS -->
-  <main class="radios">
+<main class="radio-list">
 
-    <div class="radio">
-      <img src="skyrock.png" alt="Skyrock PLM">
-      <div class="radio-info">
-        <span>Skyrock PLM</span>
-        <button onclick="playRadio(
-          'Skyrock PLM',
-          'https://icecast.skyrock.net/s/plm_aac_128k',
-          'skyrock.png'
-        )">
-          ▶ Écouter
-        </button>
-      </div>
-    </div>
-
-    <div class="radio">
-      <img src="fun.png" alt="Fun Radio">
-      <div class="radio-info">
-        <span>Fun Radio</span>
-        <button onclick="playRadio(
-          'Fun Radio',
-          'https://icecast.funradio.fr/fun-1-44-128',
-          'fun.png'
-        )">
-          ▶ Écouter
-        </button>
-      </div>
-    </div>
-
-    <div class="radio">
-      <img src="mouv.png" alt="Mouv’">
-      <div class="radio-info">
-        <span>Mouv’ Rap FR</span>
-        <button onclick="playRadio(
-          'Mouv’',
-          'https://icecast.radiofrance.fr/mouv-midfi.mp3',
-          'mouv.png'
-        )">
-          ▶ Écouter
-        </button>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- AUDIO PLAYER -->
-  <div class="player">
-  <img id="playerLogo" src="noct-plm.png" alt="Radio">
-  <div class="player-info">
-    <span id="playerTitle">Aucune radio</span>
+  <div class="radio-card">
+    <img src="skyrock.png">
+    <span>Skyrock PLM</span>
+    <button onclick="playRadio(
+      'Skyrock PLM',
+      'https://icecast.skyrock.net/s/plm_aac_128k',
+      'skyrock.png'
+    )">▶</button>
   </div>
 
-  <button id="playPause">▶</button>
+  <div class="radio-card">
+    <img src="fun.png">
+    <span>Fun Radio</span>
+    <button onclick="playRadio(
+      'Fun Radio',
+      'https://icecast.funradio.fr/fun-1-44-128',
+      'fun.png'
+    )">▶</button>
+  </div>
 
-  <input
-    type="range"
-    id="volume"
-    min="0"
-    max="1"
-    step="0.01"
-    value="1"
-  >
+  <div class="radio-card">
+    <img src="mouv.png">
+    <span>Mouv’ Rap FR</span>
+    <button onclick="playRadio(
+      'Mouv’ Rap FR',
+      'https://icecast.radiofrance.fr/mouvrapfr-midfi.mp3',
+      'mouv.png'
+    )">▶</button>
+  </div>
+
+</main>
+
+<!-- PLAYER FIXE -->
+<div class="player">
+  <img id="playerLogo" src="favicon.png">
+  <div class="player-text">
+    <span id="playerRadio">Aucune radio</span>
+  </div>
+
+  <button onclick="togglePlay()">⏯</button>
+  <button onclick="stopRadio()">⏹</button>
+
+  <input type="range" min="0" max="1" step="0.01" id="volume">
 </div>
 
-<audio id="audioPlayer"></audio>
+<audio id="audio"></audio>
 
-
-  <!-- SCRIPT -->
-  <script>
-    const audio = document.getElementById('audioPlayer');
-
-    function playRadio(name, url, icon) {
-      audio.src = url;
-      audio.play();
-      document.title = name + ' • Noct PLM';
-    }
-  </script>
-
+<script src="player.js"></script>
 </body>
 </html>
