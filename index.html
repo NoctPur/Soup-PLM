@@ -2,56 +2,73 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Soup PLM – Annuaire Radio</title>
+  <title>Soup PLM – Radios</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
+      background:#111;
+      color:#fff;
       font-family: Arial, sans-serif;
-      background-color: #111;
-      color: #fff;
-      padding: 20px;
-    }
-
-    h1 {
-      text-align: center;
+      text-align:center;
+      padding:20px;
     }
 
     .radio {
-      background: #1c1c1c;
-      padding: 15px;
       margin: 15px auto;
       max-width: 400px;
+      background: #1c1c1c;
+      padding: 15px;
       border-radius: 8px;
     }
 
     button {
+      margin-top: 10px;
       padding: 10px 15px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
     }
+
+    audio {
+      width: 100%;
+      margin-top: 20px;
+    }
   </style>
 </head>
 
 <body>
+
   <h1>🎧 Soup PLM</h1>
 
+  <!-- Lecteur audio unique -->
+  <audio id="player" controls>
+    Ton navigateur ne supporte pas l’audio.
+  </audio>
+
+  <!-- Fun Radio (lecture directe) -->
+  <div class="radio">
+    <h3>Fun Radio</h3>
+    <button onclick="playRadio('https://icecast.funradio.fr/fun-1-44-128?listen=webGJmqBU59boQ7rZDjrGO5e4')">
+      ▶ Écouter
+    </button>
+  </div>
+
+  <!-- Skyrock PLM (externe obligatoire) -->
   <div class="radio">
     <h3>Skyrock PLM</h3>
-    <p>Rap / Urbain</p>
     <button onclick="window.open('https://skyrock.fm/plm','_blank')">
       ▶ Écouter
     </button>
   </div>
 
-  <div class="radio">
-    <h3>Fun Radio</h3>
-    <p>Radio indépendante</p>
-    <button onclick="window.open('https://icecast.funradio.fr/fun-1-44-128','_blank')">
-      ▶ Écouter
-    </button>
-  </div>
+<script>
+  function playRadio(url) {
+    const player = document.getElementById('player');
+    player.src = url;
+    player.play();
+  }
+</script>
 
 </body>
 </html>
