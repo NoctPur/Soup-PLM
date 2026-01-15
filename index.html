@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>Noct PLM</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Favicon -->
-  <link id="favicon" rel="icon" type="image/png" href="favicon-default.png">
+  <link id="favicon" rel="icon" href="favicon-default.png">
+
+  <!-- Style -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
   <div class="container">
 
     <header class="top">
@@ -22,7 +24,7 @@
     </header>
 
     <main class="radios">
-      <!-- Fun Radio -->
+
       <div class="radio">
         <span>Fun Radio</span>
         <button onclick="playRadio(
@@ -32,25 +34,24 @@
         )">▶</button>
       </div>
 
-      <!-- Skyrock PLM -->
       <div class="radio">
         <span>Skyrock PLM</span>
         <button onclick="playRadio(
           'Skyrock PLM',
           'https://icecast.skyrock.net/s/plm_aac_128k',
-          'favicon-skyrockplm.png'
+          'favicon-skyrock.png'
         )">▶</button>
       </div>
 
-      <!-- Mouv -->
       <div class="radio">
-        <span>Mouv’ RapFR</span>
+        <span>Mouv’</span>
         <button onclick="playRadio(
           'Mouv’ RapFR',
           'https://icecast.radiofrance.fr/mouv-hifi.aac',
           'favicon-mouv.png'
         )">▶</button>
       </div>
+
     </main>
 
     <div class="player">
@@ -58,38 +59,26 @@
     </div>
 
   </div>
-</body>
-  
-<script>
-  const player = document.getElementById('player');
-  const nowPlaying = document.getElementById('nowPlaying');
-  const favicon = document.getElementById('favicon');
 
-  function playRadio(name, url, icon) {
-    // Stop proprement le flux précédent
-    player.pause();
-    player.removeAttribute('src');
-    player.load();
+  <script>
+    const player = document.getElementById('player');
+    const nowPlaying = document.getElementById('nowPlaying');
+    const favicon = document.getElementById('favicon');
 
-    // Nouveau flux
-    player.src = url;
-    player.load();   // 🔴 LIGNE CRUCIALE
-    player.play();
+    function playRadio(name, url, icon) {
+      player.pause();
+      player.src = url;
+      player.load();
+      player.play();
 
-    nowPlaying.textContent = "▶ En cours : " + name;
-    document.title = name + " • Soup PLM";
+      nowPlaying.textContent = "▶ En cours : " + name;
+      document.title = name + " • Noct PLM";
 
-    if (icon) {
-      favicon.href = icon + "?v=" + Date.now();
+      if (icon) {
+        favicon.href = icon + "?v=" + Date.now();
+      }
     }
-  }
-
-  player.addEventListener('pause', () => {
-    nowPlaying.textContent = "⏸ En pause";
-    document.title = "Soup PLM";
-    favicon.href = "favicon-default.png";
-  });
-</script>
+  </script>
 
 </body>
 </html>
