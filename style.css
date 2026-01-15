@@ -1,4 +1,6 @@
-/* RESET */
+/* =========================
+   RESET & BASE
+   ========================= */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,24 +9,25 @@
 }
 
 body {
-  background: linear-gradient(180deg, #0b0b0b, #000);
+  background: #000;
   color: #fff;
   min-height: 100vh;
 }
 
-/* CONTAINER */
+/* =========================
+   LAYOUT GLOBAL
+   ========================= */
 .container {
-  max-width: 520px;
+  max-width: 600px;
   margin: auto;
-  padding-bottom: 90px; /* espace player mobile */
+  padding-bottom: 90px;
 }
 
-/* HEADER */
+/* =========================
+   HEADER
+   ========================= */
 .top {
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
 }
 
 .brand {
@@ -41,34 +44,44 @@ body {
 }
 
 #nowPlaying {
-  font-size: 0.85rem;
+  margin-top: 6px;
+  font-size: 0.9rem;
   opacity: 0.7;
 }
 
-/* RADIOS */
+/* =========================
+   RADIOS — MOBILE (DEFAULT)
+   ========================= */
+.radios {
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
 .radio {
-  background: linear-gradient(160deg, #1a1a1a, #0f0f0f);
-  border-radius: 16px;
-  padding: 14px;
-  margin-bottom: 16px;
+  background: #121212;
+  border-radius: 14px;
+  padding: 12px;
   display: flex;
   align-items: center;
   gap: 14px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
 }
 
 .radio img {
-  width: 70px;
-  height: 70px;
+  width: 64px;
+  height: 64px;
   border-radius: 12px;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .radio-info {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .radio-info span {
@@ -83,10 +96,13 @@ body {
   color: #fff;
   border-radius: 10px;
   padding: 8px 16px;
+  font-size: 0.9rem;
   cursor: pointer;
 }
 
-/* PLAYER */
+/* =========================
+   PLAYER
+   ========================= */
 .player {
   position: fixed;
   bottom: 0;
@@ -102,39 +118,55 @@ audio {
   filter: invert(1);
 }
 
-/* 🖥️ DESKTOP MODE */
+/* =========================
+   DESKTOP MODE
+   ========================= */
 @media (min-width: 768px) {
+
   .container {
-    max-width: 900px;
+    max-width: 1000px;
     padding-bottom: 20px;
   }
 
   .top {
-    flex-direction: row;
+    display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
   .radios {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 20px;
   }
 
   .radio {
     flex-direction: column;
-    gap: 14px;
     text-align: center;
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .radio img {
+    width: 120px;
+    height: 120px;
+    border-radius: 18px;
+  }
+
+  .radio-info {
+    align-items: center;
   }
 
   .radio button {
     width: 100%;
-    border-radius: 10px;
+    padding: 10px 0;
+    font-size: 1rem;
   }
 
   .player {
     position: static;
     margin: 20px;
-    border-radius: 16px;
+    border-radius: 18px;
   }
 }
