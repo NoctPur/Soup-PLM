@@ -2,74 +2,56 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Soup PLM – Radios</title>
+  <title>Soup PLM – Annuaire Radio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
       background-color: #111;
       color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .container {
-      background: #1c1c1c;
       padding: 20px;
-      border-radius: 10px;
-      width: 300px;
-      text-align: center;
     }
 
     h1 {
-      margin-top: 0;
-      font-size: 22px;
+      text-align: center;
     }
 
     .radio {
-      margin: 15px 0;
+      background: #1c1c1c;
+      padding: 15px;
+      margin: 15px auto;
+      max-width: 400px;
+      border-radius: 8px;
     }
 
-    audio {
-      width: 100%;
-    }
-
-    footer {
-      margin-top: 15px;
-      font-size: 12px;
-      color: #aaa;
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <h1>🎧 Soup PLM</h1>
+  <h1>🎧 Soup PLM</h1>
 
-    <div class="radio">
-      <p>Skyrock PLM</p>
-      <audio controls>
-        <source src="" type="audio/mpeg">
-        Ton navigateur ne supporte pas l’audio.
-      </audio>
-    </div>
-
-    <div class="radio">
-      <p>Coup Radio</p>
-      <audio controls>
-        <source src="" type="audio/mpeg">
-        Ton navigateur ne supporte pas l’audio.
-      </audio>
-    </div>
-
-    <footer>
-      Site en ligne via GitHub Pages
-    </footer>
+  <div class="radio">
+    <h3>Skyrock PLM</h3>
+    <p>Rap / Urbain</p>
+    <button onclick="window.open('https://skyrock.fm/plm','_blank')">
+      ▶ Écouter
+    </button>
   </div>
+
+  <div class="radio">
+    <h3>Coup Radio</h3>
+    <p>Radio indépendante</p>
+    <button onclick="window.open('https://zeno.fm/radio/coup-radio/','_blank')">
+      ▶ Écouter
+    </button>
+  </div>
+
 </body>
 </html>
-
