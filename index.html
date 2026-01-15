@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noct PLM • Radio Streaming</title>
+  <meta name="description"
+    content="Noct PLM - Écoute tes radios préférées en streaming live. Skyrock, Fun Radio, Mouv et plus encore.">
+  <link rel="icon" href="favicon.png">
+
+  <!-- Google Fonts - Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'outfit': ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            dark: {
+              950: '#050508',
+              900: '#0a0a0f',
+              800: '#12121a',
+              700: '#1a1a25',
+              600: '#252530',
+            },
+            accent: {
+              purple: '#8b5cf6',
+              pink: '#ec4899',
+              blue: '#3b82f6',
+              cyan: '#06b6d4',
+            }
+          },
+          animation: {
+            'gradient': 'gradient 8s ease infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'shimmer': 'shimmer 2s linear infinite',
+            'bounce-slow': 'bounce 3s infinite',
+            'spin-slow': 'spin 20s linear infinite',
+            'bar1': 'bar1 0.6s ease-in-out infinite',
+            'bar2': 'bar2 0.6s ease-in-out infinite 0.1s',
+            'bar3': 'bar3 0.6s ease-in-out infinite 0.2s',
+            'bar4': 'bar4 0.6s ease-in-out infinite 0.3s',
+          },
+          keyframes: {
+            gradient: {
+              '0%, 100%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-20px)' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' },
+            },
+            bar1: {
+              '0%, 100%': { height: '8px' },
+              '50%': { height: '24px' },
+            },
+            bar2: {
+              '0%, 100%': { height: '20px' },
+              '50%': { height: '8px' },
+            },
+            bar3: {
+              '0%, 100%': { height: '12px' },
+              '50%': { height: '28px' },
+            },
+            bar4: {
+              '0%, 100%': { height: '16px' },
+              '50%': { height: '10px' },
+            },
+          },
+          backdropBlur: {
+            xs: '2px',
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="font-outfit bg-dark-950 text-white min-h-screen overflow-x-hidden">
+
+  <!-- Animated Background -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <!-- Gradient Orbs -->
+    <div
+      class="orb absolute w-[600px] h-[600px] -top-48 -right-48 rounded-full bg-gradient-to-br from-purple-600/30 via-pink-500/20 to-transparent blur-3xl animate-float">
+    </div>
+    <div
+      class="orb absolute w-[500px] h-[500px] top-1/3 -left-48 rounded-full bg-gradient-to-br from-blue-600/25 via-cyan-500/15 to-transparent blur-3xl animate-float"
+      style="animation-delay: -2s;"></div>
+    <div
+      class="orb absolute w-[400px] h-[400px] bottom-0 right-1/4 rounded-full bg-gradient-to-br from-pink-600/20 via-purple-500/15 to-transparent blur-3xl animate-float"
+      style="animation-delay: -4s;"></div>
+
+    <!-- Grid Pattern -->
+    <div
+      class="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.03)_1px,transparent_1px)] bg-[size:64px_64px]">
+    </div>
+
+    <!-- Noise Texture -->
+    <div class="absolute inset-0 opacity-[0.015]"
+      style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');">
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="relative z-10 pt-8 pb-6 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-4 sm:gap-5 header-content">
+          <!-- Logo -->
+          <div class="relative group">
+            <div
+              class="absolute -inset-1 bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-500 rounded-2xl blur opacity-60 group-hover:opacity-100 transition duration-500 animate-gradient"
+              style="background-size: 200% 200%;"></div>
+            <div
+              class="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-dark-800 flex items-center justify-center border border-white/10 overflow-hidden">
+              <svg class="w-7 h-7 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" stroke-width="1.5"
+                viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="2" fill="currentColor" />
+                <path
+                  d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Title -->
+          <div>
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+              Noct PLM
+            </h1>
+            <p class="text-sm sm:text-base text-gray-500 font-light mt-0.5">
+              Écoute tes radios préférées
+            </p>
+          </div>
+        </div>
+
+        <!-- Live Indicator -->
+        <div
+          class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-dark-800/80 backdrop-blur-xl border border-white/5">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+          </span>
+          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">Live</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="relative z-10 px-4 sm:px-6 lg:px-8 pb-36">
+    <div class="max-w-4xl mx-auto">
+
+      <!-- Section Title -->
+      <div class="mb-6 sm:mb-8 section-title">
+        <h2 class="text-lg sm:text-xl font-semibold text-white/90 flex items-center gap-3">
+          <span class="w-1 h-6 rounded-full bg-gradient-to-b from-purple-500 to-pink-500"></span>
+          Stations disponibles
+        </h2>
+      </div>
+
+      <!-- Radio Cards Grid -->
+      <div class="grid gap-4 sm:gap-5" id="radioGrid">
+
+        <!-- Skyrock -->
+        <div
+          class="radio-card group relative overflow-hidden rounded-2xl sm:rounded-3xl transition-all duration-500 cursor-pointer"
+          data-name="Skyrock PLM" data-url="https://icecast.skyrock.net/s/plm_aac_128k" data-img="skyrock.png"
+          data-radio="skyrock" data-gradient="from-red-500 via-orange-500 to-amber-500" onclick="playRadio(this)">
+
+          <!-- Card Glow Effect -->
+          <div
+            class="absolute -inset-px bg-gradient-to-r from-red-500/0 via-orange-500/0 to-amber-500/0 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 group-hover:from-red-500/20 group-hover:via-orange-500/20 group-hover:to-amber-500/20 transition-all duration-500 blur-sm">
+          </div>
+
+          <!-- Card Background -->
+          <div
+            class="relative bg-dark-800/60 backdrop-blur-2xl border border-white/[0.08] group-hover:border-white/[0.15] group-hover:bg-dark-700/60 transition-all duration-500 rounded-2xl sm:rounded-3xl">
+
+            <!-- Shine Effect -->
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent animate-shimmer"
+                style="background-size: 200% 100%;"></div>
+            </div>
+
+            <div class="relative p-4 sm:p-5 flex items-center gap-4 sm:gap-5">
+              <!-- Radio Logo -->
+              <div class="relative flex-shrink-0">
+                <div
+                  class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl sm:rounded-2xl overflow-hidden bg-white/95 shadow-xl shadow-black/20 group-hover:shadow-2xl group-hover:shadow-red-500/20 transition-all duration-500 group-hover:scale-105">
+                  <img src="skyrock.png" alt="Skyrock" class="w-full h-full object-contain p-2 sm:p-3">
+
+                  <!-- Equalizer Overlay -->
+                  <div
+                    class="equalizer absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40 hidden items-end justify-center pb-3 gap-1">
+                    <div class="w-1 bg-gradient-to-t from-red-500 to-orange-400 rounded-full animate-bar1"></div>
+                    <div class="w-1 bg-gradient-to-t from-orange-500 to-amber-400 rounded-full animate-bar2"></div>
+                    <div class="w-1 bg-gradient-to-t from-amber-500 to-yellow-400 rounded-full animate-bar3"></div>
+                    <div class="w-1 bg-gradient-to-t from-red-500 to-orange-400 rounded-full animate-bar4"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Radio Info -->
+              <div class="flex-1 min-w-0">
+                <h3
+                  class="text-lg sm:text-xl font-semibold text-white group-hover:text-white transition-colors truncate">
+                  Skyrock PLM
+                </h3>
+                <p
+                  class="status text-sm text-gray-500 group-hover:text-gray-400 transition-colors mt-1 flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+                  </svg>
+                  Cliquer pour écouter
+                </p>
+              </div>
+
+              <!-- Play Button -->
+              <button
+                class="play-btn relative flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center bg-white text-dark-900 shadow-lg shadow-white/20 group-hover:shadow-xl group-hover:shadow-white/30 transition-all duration-300 group-hover:scale-110">
+                <svg class="play-icon w-5 h-5 sm:w-6 sm:h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                <svg class="pause-icon hidden w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M6 4h4v16H6zM14 4h4v16h-4z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fun Radio -->
+        <div
+          class="radio-card group relative overflow-hidden rounded-2xl sm:rounded-3xl transition-all duration-500 cursor-pointer"
+          data-name="Fun Radio" data-url="https://icecast.funradio.fr/fun-1-44-128" data-img="fun.png"
+          data-gradient="from-yellow-400 via-orange-500 to-red-500" onclick="playRadio(this)">
+
+          <div
+            class="absolute -inset-px bg-gradient-to-r from-yellow-400/0 via-orange-500/0 to-red-500/0 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 group-hover:from-yellow-400/20 group-hover:via-orange-500/20 group-hover:to-red-500/20 transition-all duration-500 blur-sm">
+          </div>
+
+          <div
+            class="relative bg-dark-800/60 backdrop-blur-2xl border border-white/[0.08] group-hover:border-white/[0.15] group-hover:bg-dark-700/60 transition-all duration-500 rounded-2xl sm:rounded-3xl">
+
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent animate-shimmer"
+                style="background-size: 200% 100%;"></div>
+            </div>
+
+            <div class="relative p-4 sm:p-5 flex items-center gap-4 sm:gap-5">
+              <div class="relative flex-shrink-0">
+                <div
+                  class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl sm:rounded-2xl overflow-hidden bg-white/95 shadow-xl shadow-black/20 group-hover:shadow-2xl group-hover:shadow-yellow-500/20 transition-all duration-500 group-hover:scale-105">
+                  <img src="fun.png" alt="Fun Radio" class="w-full h-full object-contain p-2 sm:p-3">
+
+                  <div
+                    class="equalizer absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40 hidden items-end justify-center pb-3 gap-1">
+                    <div class="w-1 bg-gradient-to-t from-yellow-500 to-orange-400 rounded-full animate-bar1"></div>
+                    <div class="w-1 bg-gradient-to-t from-orange-500 to-red-400 rounded-full animate-bar2"></div>
+                    <div class="w-1 bg-gradient-to-t from-red-500 to-orange-400 rounded-full animate-bar3"></div>
+                    <div class="w-1 bg-gradient-to-t from-yellow-500 to-orange-400 rounded-full animate-bar4"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex-1 min-w-0">
+                <h3
+                  class="text-lg sm:text-xl font-semibold text-white group-hover:text-white transition-colors truncate">
+                  Fun Radio
+                </h3>
+                <p
+                  class="status text-sm text-gray-500 group-hover:text-gray-400 transition-colors mt-1 flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+                  </svg>
+                  Cliquer pour écouter
+                </p>
+              </div>
+
+              <button
+                class="play-btn relative flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center bg-white text-dark-900 shadow-lg shadow-white/20 group-hover:shadow-xl group-hover:shadow-white/30 transition-all duration-300 group-hover:scale-110">
+                <svg class="play-icon w-5 h-5 sm:w-6 sm:h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                <svg class="pause-icon hidden w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M6 4h4v16H6zM14 4h4v16h-4z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mouv' -->
+        <div
+          class="radio-card group relative overflow-hidden rounded-2xl sm:rounded-3xl transition-all duration-500 cursor-pointer"
+          data-name="Mouv'" data-url="https://icecast.radiofrance.fr/mouv-hifi.aac" data-img="mouv.png"
+          data-gradient="from-purple-500 via-pink-500 to-rose-500" onclick="playRadio(this)">
+
+          <div
+            class="absolute -inset-px bg-gradient-to-r from-purple-500/0 via-pink-500/0 to-rose-500/0 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 group-hover:from-purple-500/20 group-hover:via-pink-500/20 group-hover:to-rose-500/20 transition-all duration-500 blur-sm">
+          </div>
+
+          <div
+            class="relative bg-dark-800/60 backdrop-blur-2xl border border-white/[0.08] group-hover:border-white/[0.15] group-hover:bg-dark-700/60 transition-all duration-500 rounded-2xl sm:rounded-3xl">
+
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent animate-shimmer"
+                style="background-size: 200% 100%;"></div>
+            </div>
+
+            <div class="relative p-4 sm:p-5 flex items-center gap-4 sm:gap-5">
+              <div class="relative flex-shrink-0">
+                <div
+                  class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl sm:rounded-2xl overflow-hidden bg-white/95 shadow-xl shadow-black/20 group-hover:shadow-2xl group-hover:shadow-purple-500/20 transition-all duration-500 group-hover:scale-105">
+                  <img src="mouv.png" alt="Mouv'" class="w-full h-full object-contain p-2 sm:p-3">
+
+                  <div
+                    class="equalizer absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40 hidden items-end justify-center pb-3 gap-1">
+                    <div class="w-1 bg-gradient-to-t from-purple-500 to-pink-400 rounded-full animate-bar1"></div>
+                    <div class="w-1 bg-gradient-to-t from-pink-500 to-rose-400 rounded-full animate-bar2"></div>
+                    <div class="w-1 bg-gradient-to-t from-rose-500 to-pink-400 rounded-full animate-bar3"></div>
+                    <div class="w-1 bg-gradient-to-t from-purple-500 to-pink-400 rounded-full animate-bar4"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex-1 min-w-0">
+                <h3
+                  class="text-lg sm:text-xl font-semibold text-white group-hover:text-white transition-colors truncate">
+                  Mouv'
+                </h3>
+                <p
+                  class="status text-sm text-gray-500 group-hover:text-gray-400 transition-colors mt-1 flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+                  </svg>
+                  Cliquer pour écouter
+                </p>
+              </div>
+
+              <button
+                class="play-btn relative flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center bg-white text-dark-900 shadow-lg shadow-white/20 group-hover:shadow-xl group-hover:shadow-white/30 transition-all duration-300 group-hover:scale-110">
+                <svg class="play-icon w-5 h-5 sm:w-6 sm:h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                <svg class="pause-icon hidden w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M6 4h4v16H6zM14 4h4v16h-4z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Player -->
+  <div id="player" class="fixed bottom-0 left-0 right-0 z-50 transition-all duration-300"
+    style="opacity: 0; pointer-events: none; transform: translateY(20px);">
+    <div class="mx-4 sm:mx-6 lg:mx-auto lg:max-w-4xl mb-4 sm:mb-6">
+      <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl">
+
+        <!-- Player Glow -->
+        <div id="playerGlow"
+          class="absolute -inset-1 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 opacity-50 blur-xl transition-all duration-500">
+        </div>
+
+        <!-- Player Content -->
+        <div
+          class="relative bg-dark-900/95 backdrop-blur-2xl border border-white/10 rounded-2xl sm:rounded-3xl overflow-hidden">
+
+          <!-- Gradient Top Bar -->
+          <div id="playerGradient" class="h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500"></div>
+
+          <!-- Player Controls -->
+          <div class="p-4 sm:p-5 flex items-center gap-4">
+
+            <!-- Now Playing Image -->
+            <div class="relative flex-shrink-0">
+              <div
+                class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl overflow-hidden bg-white shadow-lg shadow-black/30">
+                <img id="playerImg" src="favicon.png" alt="" class="w-full h-full object-contain p-2">
+              </div>
+
+              <!-- Playing Animation Ring -->
+              <div id="playingRing"
+                class="absolute -inset-1 rounded-xl sm:rounded-2xl border-2 border-white/20 opacity-0 animate-ping">
+              </div>
+            </div>
+
+            <!-- Track Info -->
+            <div class="flex-1 min-w-0">
+              <p id="playerName" class="text-base sm:text-lg font-semibold text-white truncate">
+                Aucune radio
+              </p>
+              <p id="playerStatus" class="text-sm text-gray-500 flex items-center gap-2 mt-0.5">
+                En pause
+              </p>
+            </div>
+
+            <!-- Volume Control - Now visible on all screens -->
+            <div class="flex items-center gap-2 sm:gap-3">
+              <button onclick="toggleMute()" class="p-2 rounded-full hover:bg-white/10 transition-colors group">
+                <svg id="volumeIcon" class="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" fill="none"
+                  stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" />
+                </svg>
+              </button>
+              <div class="relative w-16 sm:w-24 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div id="volumeFill"
+                  class="absolute left-0 top-0 h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all"
+                  style="width: 70%;"></div>
+                <input type="range" id="volume" min="0" max="1" step="0.01" value="0.7"
+                  class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+              </div>
+            </div>
+
+            <!-- Control Buttons -->
+            <div class="flex items-center gap-2 sm:gap-3">
+              <!-- Play/Pause Button -->
+              <button onclick="togglePlay()" id="playPauseBtn"
+                class="relative w-11 h-11 sm:w-14 sm:h-14 rounded-full flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 transition-all duration-300 hover:scale-105">
+                <svg id="playerPlayIcon" class="w-5 h-5 sm:w-6 sm:h-6 text-white ml-0.5" fill="white"
+                  viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                <svg id="playerPauseIcon" class="hidden w-5 h-5 sm:w-6 sm:h-6 text-white" fill="white"
+                  viewBox="0 0 24 24">
+                  <path d="M6 4h4v16H6zM14 4h4v16h-4z" />
+                </svg>
+              </button>
+
+              <!-- Stop Button -->
+              <button onclick="stopRadio()"
+                class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-white/10 hover:bg-red-500/20 hover:text-red-400 backdrop-blur transition-all duration-300 hover:scale-105 group">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white group-hover:text-red-400 transition-colors"
+                  fill="currentColor" viewBox="0 0 24 24">
+                  <rect x="6" y="6" width="12" height="12" rx="1" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Element -->
+  <audio id="audio"></audio>
+
+  <!-- JavaScript -->
+  <script src="player.js"></script>
+</body>
+
+</html>
